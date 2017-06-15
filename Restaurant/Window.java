@@ -35,13 +35,14 @@ public class Window extends JPanel{
 	} 
 	
 	private  BufferedImage tableImage=null;
-	
+	private BufferedImage stairsImage=null;
 	public Window(){
 		
-		File imageFile = new File("img/s.png");
-		
+		File tableFile = new File("img/s.png");
+		File stairsFile = new File("img/stairs.png");
 		try {
-			tableImage = ImageIO.read(imageFile);
+			tableImage = ImageIO.read(tableFile);
+			stairsImage = ImageIO.read(stairsFile);
 		} catch (IOException e) {
 			System.err.println("Blad odczytu obrazka");
 			e.printStackTrace();
@@ -84,8 +85,6 @@ public class Window extends JPanel{
 		//table3
 		g2.drawImage(tableImage, 550, 650, this);
 
-		g2.setColor(Color.GREEN);
-		g2.fillRect(350, 175, 100, 175);
 
 		
 		g2.setColor(Color.WHITE);
@@ -100,9 +99,8 @@ public class Window extends JPanel{
 		g2.drawImage(tableImage, 550, 400, this);
 		//table4
 		g2.drawImage(tableImage, 550, 650, this);
-		
-		g2.setColor(Color.GREEN);
-		g2.fillRect(350, 175, 100, 175);			//stairs
+					
+		g2.drawImage(stairsImage, 360, 175,this);		//stairs
 		g2.setColor(Color.BLUE);
 		
 		for (Client c: RestaurationManager.Instance().ClientList) {
