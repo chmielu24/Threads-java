@@ -1,9 +1,27 @@
+import javax.print.attribute.standard.Destination;
 
 public class Waiter extends Person {
 
-	public Waiter(int x, int y) {
-		super(x, y);
-		// TODO Auto-generated constructor stub
+	Client destinationClient;
+	
+	public Waiter(Point p, Client destination) {
+		super(p);
+		this.destinationClient = destination;
+		
+		TravelPoints.add(p);
+		TravelPoints.add(destinationClient.position);
+	}
+	
+	
+	
+	public void run()
+	{
+		while(IsInRestaurant)
+		{
+			Update();
+		}
+		
+		RestaurationManager.Instance().RemoveWaiter(this);
 	}
 
 }
