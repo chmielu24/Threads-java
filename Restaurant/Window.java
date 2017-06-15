@@ -26,7 +26,7 @@ public class Window extends JPanel{
 			}
 		});
 
-	}
+	} 
 	
 	private  BufferedImage tableImage=null;
 	
