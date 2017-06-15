@@ -8,6 +8,7 @@ public class Person extends Thread {
 	protected ArrayList<Point> TravelPoints = new ArrayList<Point>();
 	protected int AccualPoint = 0;
 	protected int direction = 1;
+	private float speed = 3f;
 	
 	public Person(Point p)
 	{
@@ -15,36 +16,80 @@ public class Person extends Thread {
 		IsInRestaurant = true;
 	}
 
-	public synchronized Point getPosition() {
+	synchronized public Point getPosition() {
 		return position;
 	}
 
-	public synchronized void setPosition(Point position) {
-		this.position = position;
+	synchronized public void setPosition(Point position) {
+		this.position.set(position.getX(), position.getY());
 	}
 	
-	public synchronized void Move(float x, float y)
+	synchronized public void Move(float x, float y)
 	{
 		position.set(position.getX() + x, position.getY() + y);
 	}
 	
 	public void Update()
-	{
-		if(TravelPoints.size() == 0)
-			return;
+	{		
 		
-		if(AccualPoint >= TravelPoints.size())
-			direction = -1;	
+		if(TravelPoints.size() == 0 || AccualPoint == -1)
+			return;	
 		
-		Point v = Point.NormalizedVector(TravelPoints.get(AccualPoint), position);
-		
-		if(Point.Distance(TravelPoints.get(AccualPoint), position) <= v.Lenght())
-		{
-			setPosition(TravelPoints.get(AccualPoint));
-			AccualPoint += direction;
+
+		if(direction == 1)
+		{		
+			Point v = Point.NormalizedVector(TravelPoints.get(AccualPoint), position);
+						
+			if(Point.Distance(TravelPoints.get(AccualPoint), position) <= speed)
+			{
+				setPosition(TravelPoints.get(AccualPoint));
+				
+				if(AccualPoint == TravelPoints.size() - 1)
+				{
+					IsOnEndPoint();
+				}
+				else
+					AccualPoint++;
+			}
+			else
+				Move(v.getX() * speed, v.getY() * speed);
 		}
 		else
-			Move(v.getX(), v.getY());
+		{		
+			Point v = Point.NormalizedVector(position, TravelPoints.get(AccualPoint));
+			
+			if(Point.Distance(position, TravelPoints.get(AccualPoint)) <= speed)
+			{
+				setPosition(TravelPoints.get(AccualPoint));
+				AccualPoint--;
+				
+				if(AccualPoint == -1)
+					EndTravel();
+			}
+			else
+				Move(v.getX() * -speed, v.getY() * -speed);
+			
+		}
+	}
+	
+	protected void IsOnEndPoint()
+	{
+		direction = -1;
+	}
+	
+	protected void EndTravel()
+	{
+		IsInRestaurant = false;
 
+	}
+	
+	protected void SleepAfterMove(int time)
+	{
+		try {
+			sleep(time);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

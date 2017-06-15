@@ -17,9 +17,9 @@ public class RestaurationManager extends Thread {
 	ArrayList<Waiter> WaiterList = new ArrayList<Waiter> ();
 
 	
-	private int MaxClients = 10;
+	private int MaxClients = 1;
 	private float SpawnClientTimeCount = 3;
-	private Point ClientSpawnPoint = new Point(10, 10);
+	private Point ClientSpawnPoint = new Point(20, 20);
 	
 	private Point WaiterSpawnPoint = new Point(10, 10);
 
