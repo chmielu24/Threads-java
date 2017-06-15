@@ -6,7 +6,7 @@ public class Waiter extends Person {
 		super(p);
 		this.destinationClient = destination;
 		
-		TravelPoints.add(p);
+		TravelPoints.add(new Point(p.getX(), p.getY()));
 		TravelPoints.add(destinationClient.position);
 	}
 	
@@ -17,10 +17,17 @@ public class Waiter extends Person {
 		while(IsInRestaurant)
 		{
 			Update();
-			SleepAfterMove(100);
+			Sleep(100);
 		}
 		
 		RestaurationManager.Instance().RemoveWaiter(this);
 	}
-
+	
+	
+	@Override
+	protected void IsOnEndPoint() {
+		super.IsOnEndPoint();
+		
+		destinationClient.waiterCome();
+	}
 }

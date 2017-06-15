@@ -29,7 +29,7 @@ public class Person extends Thread {
 		position.set(position.getX() + x, position.getY() + y);
 	}
 	
-	public void Update()
+	protected void Update()
 	{		
 		
 		if(TravelPoints.size() == 0 || AccualPoint == -1)
@@ -54,7 +54,7 @@ public class Person extends Thread {
 			else
 				Move(v.getX() * speed, v.getY() * speed);
 		}
-		else
+		else if(direction == -1)
 		{		
 			Point v = Point.NormalizedVector(position, TravelPoints.get(AccualPoint));
 			
@@ -80,10 +80,9 @@ public class Person extends Thread {
 	protected void EndTravel()
 	{
 		IsInRestaurant = false;
-
 	}
 	
-	protected void SleepAfterMove(int time)
+	protected void Sleep(int time)
 	{
 		try {
 			sleep(time);
