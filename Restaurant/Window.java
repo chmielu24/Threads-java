@@ -66,13 +66,24 @@ public class Window extends JPanel{
 		super.paintComponent(g);
 		
 		Graphics2D g2 = (Graphics2D) g;
+		
+		g2.drawLine(400, 0, 400, 800);
+		//table1
 		g2.drawImage(tableImage, 125, 50, this);
-		
+		//table2
 		g2.drawImage(tableImage, 125, 300, this);
+		//table3
+		g2.drawImage(tableImage, 125, 550, this);
+		//table4
+		g2.drawImage(tableImage, 575, 50, this);
+		//table5
+		g2.drawImage(tableImage, 575, 300, this);
+		//table3
+		g2.drawImage(tableImage, 575, 550, this);
 		
-		g2.drawImage(tableImage, 125, 500, this);
 		
 		g2.setColor(Color.BLUE);
+		g2.fillRect(725,125,75,250);
 		for (Client c: RestaurationManager.Instance().ClientList) {
 			g2.fillRect((int)c.getPosition().getX(), (int)c.getPosition().getY(), 25, 25);
 			
