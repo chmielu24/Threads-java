@@ -7,6 +7,8 @@ public class Waiter extends Person {
 		this.destinationClient = destination;
 		
 		TravelPoints.add(new Point(p.getX(), p.getY()));
+		TravelPoints.add(new Point(400, 90));
+		TravelPoints.add(new Point(400, 600));
 		TravelPoints.add(destinationClient.position);
 	}
 	

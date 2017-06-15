@@ -10,8 +10,9 @@ public class Client extends Person {
 		super(p);
 		
 		TravelPoints.add(new Point(p.getX(), p.getY()));
-		TravelPoints.add(new Point(100, 100));
-		
+		TravelPoints.add(new Point(400, 90));
+		TravelPoints.add(new Point(400, 600));
+		TravelPoints.add(new Point(500, 600));
 	}
 	
 	public void run()

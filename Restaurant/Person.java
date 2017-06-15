@@ -8,7 +8,7 @@ public class Person extends Thread {
 	protected ArrayList<Point> TravelPoints = new ArrayList<Point>();
 	protected int AccualPoint = 0;
 	protected int direction = 1;
-	private float speed = 3f;
+	private float speed = 6f;
 	
 	public Person(Point p)
 	{
