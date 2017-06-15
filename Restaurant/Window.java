@@ -92,7 +92,7 @@ public class Window extends JPanel{
 		g2.setColor(Color.RED);
 		for (Waiter w: RestaurationManager.Instance().WaiterList) {
 			g2.drawRect((int)w.getPosition().getX(), (int)w.getPosition().getY(), 25, 25);
-		}
+		} 
 	}
 } 
 
