@@ -68,25 +68,24 @@ public class Window extends JPanel{
 		Graphics2D g2 = (Graphics2D) g;
 		
 	//	g2.drawLine(400, 0, 400, 800);
-		//table1
-		//g2.drawImage(tableImage, 150, 50, this);
+		
+		
 		g2.setColor(Color.WHITE);
-		g2.fillRect(150, 50, 100, 100);
-		g2.fillRect(550, 50, 100, 100);
-		//table2
+		g2.fillRect(150, 50, 100, 100);				//kitchen (150,50)
+		g2.fillRect(550, 50, 100, 100);				//entry		(550,50)
+		//table1
 		g2.drawImage(tableImage, 150, 400, this);
-		//table3
+		//table2
 		g2.drawImage(tableImage, 150, 650, this);
-		//table4
-	//	g2.drawImage(tableImage, 550, 50, this);
-		//table5
-		g2.drawImage(tableImage, 550, 400, this);
+		
 		//table3
+		g2.drawImage(tableImage, 550, 400, this);
+		//table4
 		g2.drawImage(tableImage, 550, 650, this);
 		
 		g2.setColor(Color.GREEN);
-		g2.fillRect(350, 175, 100, 175);
-
+		g2.fillRect(350, 175, 100, 175);			//stairs
+		g2.setColor(Color.BLUE);
 		for (Client c: RestaurationManager.Instance().ClientList) {
 			g2.fillRect((int)c.getPosition().getX(), (int)c.getPosition().getY(), 25, 25);
 			
