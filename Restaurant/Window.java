@@ -11,6 +11,8 @@ import javax.swing.SwingUtilities;
 
 public class Window extends JPanel{
 	
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		SwingUtilities.invokeLater(new Runnable(){
@@ -41,12 +43,16 @@ public class Window extends JPanel{
 			e.printStackTrace();
 		}
 		
-	
+		new RestaurationManager().start();
 	}
 	
 	@Override
 	public void paintComponent(Graphics g){
 		Graphics2D g2 = (Graphics2D) g;
-		g2.drawImage(tableImage, 0,0, this);
+		g2.drawImage(tableImage, 125, 50, this);
+		
+		g2.drawImage(tableImage, 125, 300, this);
+		
+		g2.drawImage(tableImage, 125, 500, this);
 	}
 } 
