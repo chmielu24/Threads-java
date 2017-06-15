@@ -2,6 +2,6 @@
 public class Window {
 	public Window(){
 		
-		//zmieniam
+		//12312312
 	}
 } 
