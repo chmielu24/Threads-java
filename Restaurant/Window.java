@@ -1,4 +1,4 @@
-import javax.swing.SwingUtilities;
+import java.swing.SwingUtilities;
 
 public class Window {
 	
@@ -10,15 +10,13 @@ public class Window {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				MyFrame myframe = new MyFrame("restauracja");
+			
 			}
 		});
 
 	}
 	
 	public Window(){
-		
-		
-		
+
 	}
 } 
