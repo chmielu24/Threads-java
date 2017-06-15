@@ -36,6 +36,9 @@ public class RestaurationManager extends Thread {
 		if(this != Instance())
 			return;
 		
+		new Stairs().start();
+
+		
 		  ActionListener ClientSpawner = new ActionListener() {
 		      public void actionPerformed(ActionEvent evt) {
 		    	  RestaurationManager.Instance().SpawnClient();
