@@ -1,5 +1,8 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 public class Window extends JPanel{
 	
@@ -44,16 +48,39 @@ public class Window extends JPanel{
 		}
 		
 		new RestaurationManager().start();
+		
+		Timer timer = new Timer(50, new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				repaint();
+			}
+			
+		});
+		timer.start();
 	}
 	
 	@Override
 	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(tableImage, 125, 50, this);
 		
 		g2.drawImage(tableImage, 125, 300, this);
 		
 		g2.drawImage(tableImage, 125, 500, this);
+		
+		g2.setColor(Color.BLUE);
+		for (Client c: RestaurationManager.Instance().ClientList) {
+			g2.fillRect((int)c.getPosition().getX(), (int)c.getPosition().getY(), 25, 25);
+			
+		}
+		
+		for (Waiter w: RestaurationManager.Instance().WaiterList) {
+			g2.drawRect((int)w.getPosition().getX(), (int)w.getPosition().getY(), 25, 25);
+		}
 	}
 } 
 
