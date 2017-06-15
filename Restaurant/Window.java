@@ -56,3 +56,4 @@ public class Window extends JPanel{
 		g2.drawImage(tableImage, 125, 500, this);
 	}
 } 
+
