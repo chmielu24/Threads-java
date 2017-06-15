@@ -1,9 +1,19 @@
 
 public class Waiter extends Person {
 
-	public Waiter(int x, int y) {
-		super(x, y);
-		// TODO Auto-generated constructor stub
+	Client destinationClient;
+	
+	public Waiter(Point p, Client destination) {
+		super(p);
+		this.destinationClient = destination;
+	}
+	
+	public void run()
+	{
+		while(IsInRestaurant)
+		{
+			
+		}
 	}
 
 }

@@ -2,10 +2,12 @@
 public class Person extends Thread {
 
 	protected Point position;
+	protected boolean IsInRestaurant;
 	
-	public Person(int x, int y)
+	public Person(Point p)
 	{
-		setPosition(new Point(x, y));
+		position = new Point(p.getX(), p.getY());
+		IsInRestaurant = true;
 	}
 
 	public synchronized Point getPosition() {

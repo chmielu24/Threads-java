@@ -8,7 +8,6 @@ public class Stairs extends Thread {
 		return instance;
 	}
 	
-	
 	public Stairs()
 	{
 		if(instance == null)
