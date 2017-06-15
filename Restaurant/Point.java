@@ -44,6 +44,13 @@ public class Point {
 	{
 		Point newP = new Point(a.x - b.x, a.y - b.y);
 		float lenght = Distance(a,b);
+		
+		if(lenght == 0)
+		{
+			newP.set(0, 0);
+			return newP;
+		}
+			
 		newP.x /= lenght;
 		newP.y /= lenght;
 

@@ -6,7 +6,8 @@ public class Client extends Person {
 	public Client(Point p) {
 		super(p);
 		
-		TravelPoints.add(p);
+		TravelPoints.add(new Point(p.getX(), p.getY()));
+		TravelPoints.add(new Point(100, 100));
 		
 	}
 	
@@ -15,6 +16,7 @@ public class Client extends Person {
 		while(IsInRestaurant)
 		{
 			Update();
+			SleepAfterMove(100);
 		}
 		
 		RestaurationManager.Instance().RemoveClient(this);

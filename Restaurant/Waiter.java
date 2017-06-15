@@ -1,5 +1,3 @@
-import javax.print.attribute.standard.Destination;
-
 public class Waiter extends Person {
 
 	Client destinationClient;
@@ -19,6 +17,7 @@ public class Waiter extends Person {
 		while(IsInRestaurant)
 		{
 			Update();
+			SleepAfterMove(100);
 		}
 		
 		RestaurationManager.Instance().RemoveWaiter(this);
