@@ -7,6 +7,7 @@ public class Client extends Person {
 		super(p);
 		
 		TravelPoints.add(p);
+		TravelPoints.add(new Point(100, 100));
 		
 	}
 	
