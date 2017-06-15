@@ -60,7 +60,6 @@ public class RestaurationManager extends Thread {
 					SpawnWaiter(client);
 					client.setWaitToWaiter(false);
 				}
-					
 			}
 		}
 	}
