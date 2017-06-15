@@ -13,7 +13,8 @@ public class Window {
 				MyFrame myframe = new MyFrame("restauracja");
 			}
 		});
-}
+
+	}
 	
 	
 	public Window(){

@@ -24,6 +24,7 @@ public class MyFrame extends JFrame{
 			
 		});
 		timer.start();
+
 	}
 
 }
