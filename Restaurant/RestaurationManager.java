@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import javax.swing.Timer;
 
-import com.sun.xml.internal.ws.api.pipe.Fiber.Listener;
-
 public class RestaurationManager extends Thread {
 	
 	private static RestaurationManager instance;

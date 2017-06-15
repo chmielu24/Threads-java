@@ -5,27 +5,25 @@ public class Client extends Person {
 	
 	public Client(Point p) {
 		super(p);
+		
+		TravelPoints.add(p);
+		
 	}
-
-	
-	
 	
 	public void run()
 	{
 		while(IsInRestaurant)
 		{
-		
+			Update();
 		}
+		
+		RestaurationManager.Instance().RemoveClient(this);
 	}
-
-
 
 
 	public boolean isWaitToWaiter() {
 		return isWaitToWaiter;
 	}
-
-
 
 
 	public void setWaitToWaiter(boolean isWaitToWaiter) {

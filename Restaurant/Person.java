@@ -47,6 +47,4 @@ public class Person extends Thread {
 			Move(v.getX(), v.getY());
 
 	}
-
-	
 }
