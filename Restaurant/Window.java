@@ -1,4 +1,4 @@
-import java.swing.SwingUtilities;
+import javax.swing.SwingUtilities;
 
 public class Window {
 	
@@ -10,7 +10,7 @@ public class Window {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-			
+				
 			}
 		});
 
