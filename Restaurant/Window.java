@@ -50,7 +50,8 @@ public class Window extends JPanel{
 		
 		new RestaurationManager().start();
 		
-		Timer timer = new Timer(50, new ActionListener(){
+		
+		/*Timer timer = new Timer(1, new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -59,7 +60,25 @@ public class Window extends JPanel{
 			}
 			
 		});
-		timer.start();
+		timer.start();*/
+		
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while(true)
+				{
+					repaint();
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		t.setPriority(Thread.MAX_PRIORITY);
+		t.start();	
 	}
 	
 	@Override
@@ -103,15 +122,22 @@ public class Window extends JPanel{
 		g2.drawImage(stairsImage, 360, 175,this);		//stairs
 		g2.setColor(Color.BLUE);
 		
-		for (Client c: RestaurationManager.Instance().ClientList) {
-			g2.fillRect((int)c.getPosition().getX(), (int)c.getPosition().getY(), 25, 25);
-			
+		synchronized(RestaurationManager.Instance().ClientList)
+		{
+			for (Client c: RestaurationManager.Instance().ClientList) {
+				g2.fillRect((int)c.getPosition().getX(), (int)c.getPosition().getY(), 25, 25);
+				
+			}
 		}
 		
 		g2.setColor(Color.RED);
-		for (Waiter w: RestaurationManager.Instance().WaiterList) {
-			g2.fillRect((int)w.getPosition().getX(), (int)w.getPosition().getY(), 25, 25);
-		} 
+		synchronized(RestaurationManager.Instance().WaiterList)
+		{
+			for (Waiter w: RestaurationManager.Instance().WaiterList) {
+				g2.fillRect((int)w.getPosition().getX(), (int)w.getPosition().getY(), 25, 25);
+			} 
+		}
+		
 	}
 } 
 

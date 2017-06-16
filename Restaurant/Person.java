@@ -4,35 +4,43 @@ public class Person extends Thread {
 
 	protected Point position;
 	protected boolean IsInRestaurant;
+	protected boolean IsWait = false;
+	private boolean IsAfterStaris = false;
 	
 	protected ArrayList<Point> TravelPoints = new ArrayList<Point>();
 	protected int AccualPoint = 0;
 	protected int direction = 1;
-	private float speed = 6f;
+	protected float speed = 2f;
+	
+	protected int WaitPoints[] = {2,3};
 	
 	public Person(Point p)
 	{
 		position = new Point(p.getX(), p.getY());
 		IsInRestaurant = true;
+		
+		TravelPoints.add(new Point(p.getX(), p.getY()));
+		TravelPoints.add(new Point(400, 90));
+		TravelPoints.add(new Point(400, 150));
+		TravelPoints.add(new Point(400, 350));
 	}
 
-	synchronized public Point getPosition() {
+	public Point getPosition() {
 		return position;
 	}
 
-	synchronized public void setPosition(Point position) {
+	public void setPosition(Point position) {
 		this.position.set(position.getX(), position.getY());
 	}
 	
-	synchronized public void Move(float x, float y)
+	public void Move(float x, float y)
 	{
 		position.set(position.getX() + x, position.getY() + y);
 	}
 	
 	protected void Update()
 	{		
-		
-		if(TravelPoints.size() == 0 || AccualPoint == -1)
+		if(TravelPoints.size() == 0 || AccualPoint == -1 || IsWait)
 			return;	
 		
 
@@ -44,8 +52,13 @@ public class Person extends Thread {
 			{
 				setPosition(TravelPoints.get(AccualPoint));
 				
-				if(AccualPoint == TravelPoints.size() - 1)
+				if(checkStairs(false))
 				{
+					return;
+				}
+				
+				if(AccualPoint == TravelPoints.size() - 1)
+				{		
 					IsOnEndPoint();
 				}
 				else
@@ -61,15 +74,40 @@ public class Person extends Thread {
 			if(Point.Distance(position, TravelPoints.get(AccualPoint)) <= speed)
 			{
 				setPosition(TravelPoints.get(AccualPoint));
-				AccualPoint--;
 				
+				if(checkStairs(true))
+					return;
+				
+				AccualPoint--;
 				if(AccualPoint == -1)
 					EndTravel();
+
 			}
 			else
 				Move(v.getX() * -speed, v.getY() * -speed);
 			
 		}
+	}
+	
+	protected boolean checkStairs(boolean isBack)
+	{
+		for (int point : WaitPoints) {
+			if (point == AccualPoint)
+			{
+				if(!IsAfterStaris)
+				{
+					AccualPoint+=direction;
+					IsWait = true;
+					IsAfterStaris = true;
+					Stairs.Instance().Go(this, TravelPoints.get(AccualPoint), isBack);
+					return true;
+				}
+				
+				IsAfterStaris = false;
+			}
+		}
+		
+		return false;
 	}
 	
 	protected void IsOnEndPoint()
@@ -90,5 +128,10 @@ public class Person extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void StairsEnd()
+	{
+		IsWait = false;
 	}
 }

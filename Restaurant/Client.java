@@ -4,15 +4,20 @@ public class Client extends Person {
 	private boolean isWaitToWaiter = false;
 	private boolean isWaiterComming = false;
 	private boolean isEat = false;
-
+	private int TableIndex;
 	
 	public Client(Point p) {
 		super(p);
-		
-		TravelPoints.add(new Point(p.getX(), p.getY()));
-		TravelPoints.add(new Point(400, 90));
-		TravelPoints.add(new Point(400, 600));
-		TravelPoints.add(new Point(500, 600));
+	}
+	
+	public void AddPoint(Point p)
+	{
+		TravelPoints.add(p);
+	}
+	
+	public void SetTableIndex(int i)
+	{
+		TableIndex = i;
 	}
 	
 	public void run()
@@ -30,23 +35,23 @@ public class Client extends Person {
 				isEat=false;
 			}
 			
-			Sleep(100);
+			Sleep(16);
 		}
 		
 		RestaurationManager.Instance().RemoveClient(this);
 	}
 
 
-	public synchronized boolean isWaitToWaiter() {
+	public boolean isWaitToWaiter() {
 		return isWaitToWaiter;
 	}
 
-	public synchronized void setWaitToWaiter(boolean b) {
+	public void setWaitToWaiter(boolean b) {
 		this.isWaitToWaiter = b;
 
 	}
 	
-	public synchronized void waiterCome() {
+	public void waiterCome() {
 		isWaiterComming = false;
 		isEat = true;
 	}
@@ -61,6 +66,7 @@ public class Client extends Person {
 	
 	public void Eat()
 	{
-		this.Sleep(5000);
+		this.Sleep(7000);
+		RestaurationManager.Instance().FreeTable(TableIndex);
 	}
 }

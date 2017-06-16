@@ -17,12 +17,13 @@ public class RestaurationManager extends Thread {
 	ArrayList<Waiter> WaiterList = new ArrayList<Waiter> ();
 
 	
-	private int MaxClients = 4;
-	private float SpawnClientTimeCount = 3;
+	private int MaxClients = 50;
+	private float SpawnClientTimeCount = 2;
 	private Point ClientSpawnPoint = new Point(590, 90);
 	
 	private Point WaiterSpawnPoint = new Point(190, 90);
-
+	
+	private boolean isTableReserved[] = new boolean[6];
 	
 	public RestaurationManager()
 	{
@@ -35,7 +36,6 @@ public class RestaurationManager extends Thread {
 	{
 		if(this != Instance())
 			return;
-		
 		new Stairs().start();
 
 		
@@ -49,30 +49,39 @@ public class RestaurationManager extends Thread {
 		while(true)
 		{
 			try {
-				Thread.sleep(100);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			for (Client client : ClientList) {
-				if(client.isWaitToWaiter())
-				{
-					SpawnWaiter(client);
-					client.setWaitToWaiter(false);
-				}
-			}
+			update();
 		}
 	}
 	
+	synchronized private void update()
+	{
+		for (Client client : ClientList) {
+			if(client.isWaitToWaiter())
+			{
+				SpawnWaiter(client);
+				client.setWaitToWaiter(false);
+			}
+		}
+	}
 	
 	synchronized void SpawnClient()
 	{
 		if(ClientList.size() < MaxClients)
 		{
 			Client c = new Client(ClientSpawnPoint);
-			c.start();
-			ClientList.add(c);
+			if(findTable(c))
+			{
+				c.start();
+				ClientList.add(c);
+			}
+			else
+				c=null;
 		}
 	}
 	
@@ -91,6 +100,37 @@ public class RestaurationManager extends Thread {
 	synchronized void RemoveWaiter(Waiter c)
 	{
 		WaiterList.remove(c);
+	}
+	
+	synchronized private boolean findTable(Client c)
+	{
+		for(int i=0; i< isTableReserved.length; i++)
+		{
+			if(!isTableReserved[i])
+			{
+				isTableReserved[i] = true;
+				c.SetTableIndex(i);
+				switch(i)
+				{
+					case 0: c.AddPoint(new Point(400, 450)); c.AddPoint(new Point(200, 450)); break;
+					case 1: c.AddPoint(new Point(400, 450)); c.AddPoint(new Point(600, 450)); break;
+					case 2: c.AddPoint(new Point(400, 650)); c.AddPoint(new Point(200, 650)); break;
+					case 3: c.AddPoint(new Point(400, 650)); c.AddPoint(new Point(600, 650)); break;
+					case 4: c.AddPoint(new Point(400, 550)); c.AddPoint(new Point(600, 550)); break;
+					case 5: c.AddPoint(new Point(400, 550)); c.AddPoint(new Point(200, 550)); break;
+
+				}
+				
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	synchronized public void FreeTable(int i)
+	{
+		isTableReserved[i] = false;
 	}
 	
 }

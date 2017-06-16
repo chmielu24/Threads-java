@@ -8,28 +8,28 @@ public class Point {
 		this.y = y;
 	}
 	
-	public void set(float x, float y) {
+	public synchronized void set(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
 	
-	public float getX() {
+	public synchronized float getX() {
 		return x;
 	}
 
-	public void setX(float x) {
+	public synchronized void setX(float x) {
 		this.x = x;
 	}
 
-	public float getY() {
+	public synchronized float getY() {
 		return y;
 	}
 
-	public void setY(float y) {
+	public synchronized void setY(float y) {
 		this.y = y;
 	}	
 
-	public float Lenght()
+	public synchronized float Lenght()
 	{
 		return (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 	}
