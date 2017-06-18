@@ -38,9 +38,19 @@ public class Person extends Thread {
 		position.set(position.getX() + x, position.getY() + y);
 	}
 	
-	protected void Update()
+	protected synchronized void Update()
 	{		
-		if(TravelPoints.size() == 0 || AccualPoint == -1 || IsWait)
+		if(IsWait)
+		{
+			try {
+				this.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		if(TravelPoints.size() == 0 || AccualPoint == -1)
 			return;	
 		
 
@@ -130,8 +140,9 @@ public class Person extends Thread {
 		}
 	}
 	
-	public void StairsEnd()
+	public synchronized void StairsEnd()
 	{
 		IsWait = false;
+		this.notify();
 	}
 }

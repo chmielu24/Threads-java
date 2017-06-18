@@ -13,7 +13,7 @@ public class Stairs extends Thread {
 	private Deque<Person> queue2 = new ArrayDeque<Person>();
 	private Deque<Point> queuePoints2 = new ArrayDeque<Point>();
 
-	
+	private boolean isWait = false;
 	private float speed = 2f;
 	
 	public static Stairs Instance()
@@ -63,6 +63,16 @@ public class Stairs extends Thread {
 					AccualPersonOnStairs = queue.pop();
 					AccualPoint = queuePoints.pop();
 				}
+				else if (!isWait)
+				{
+					try {
+						isWait = true;
+						wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			
 		}
 		else
@@ -86,6 +96,12 @@ public class Stairs extends Thread {
 	
 	public synchronized void Go(Person p, Point dest, boolean isBack)
 	{
+		if(isWait)
+		{
+			this.notify();
+			isWait = false;
+		}
+		
 		if(isBack)
 		{
 			queue2.addLast(p);

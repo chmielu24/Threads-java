@@ -51,17 +51,25 @@ public class Client extends Person {
 
 	}
 	
-	public void waiterCome() {
+	public synchronized void waiterCome() {
 		isWaiterComming = false;
 		isEat = true;
+		
+		this.notify();
 	}
 	
 	@Override
-	protected void IsOnEndPoint() {
+	protected synchronized void IsOnEndPoint() {
 		super.IsOnEndPoint();
 		
 		isWaiterComming = true;
 		setWaitToWaiter(true);
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void Eat()
