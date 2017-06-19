@@ -1,9 +1,11 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -24,7 +26,7 @@ public class Window extends JPanel{
 			@Override
 			public void run() {
 				JFrame restaurantFrame = new JFrame("restaurant");
-				restaurantFrame.setSize(800,800);
+				restaurantFrame.setSize(800,825);
 				restaurantFrame.setResizable(false);
 				restaurantFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				restaurantFrame.add(new Window());
@@ -36,13 +38,29 @@ public class Window extends JPanel{
 	
 	private  BufferedImage tableImage=null;
 	private BufferedImage stairsImage=null;
+	private BufferedImage backgroundImage=null;
+	private BufferedImage entryImage=null;
+	private BufferedImage kitchenImage=null;
+	private BufferedImage waiterImage=null;
+	private BufferedImage clientImage=null;
 	public Window(){
 		
-		File tableFile = new File("img/s.png");
+		File tableFile = new File("img/table1.png");
 		File stairsFile = new File("img/stairs.png");
+		File backgroundFile = new File("img/background.png");
+		File entryFile = new File("img/entry.png");
+		File kitchenFile = new File("img/kitchen.png");
+		File waiterFile = new File("img/waiter.png");
+		File clientFile = new File("img/client.png");
 		try {
 			tableImage = ImageIO.read(tableFile);
 			stairsImage = ImageIO.read(stairsFile);
+			backgroundImage = ImageIO.read(backgroundFile);
+			entryImage = ImageIO.read(entryFile);
+			kitchenImage = ImageIO.read(kitchenFile);
+			waiterImage = ImageIO.read(waiterFile);
+			clientImage = ImageIO.read(clientFile);
+			
 		} catch (IOException e) {
 			System.err.println("Blad odczytu obrazka");
 			e.printStackTrace();
@@ -87,37 +105,32 @@ public class Window extends JPanel{
 		
 		Graphics2D g2 = (Graphics2D) g;
 		
+		g2.drawImage(backgroundImage, 0, 0, this);
+		
 	//	g2.drawLine(400, 0, 400, 800);
 		//table1
 		//g2.drawImage(tableImage, 150, 50, this);
-		g2.setColor(Color.WHITE);
-		g2.fillRect(150, 50, 100, 100);
-		g2.fillRect(550, 50, 100, 100);
-		//table2
-		g2.drawImage(tableImage, 150, 400, this);
-		//table3
-		g2.drawImage(tableImage, 150, 650, this);
-		//table4
-	//	g2.drawImage(tableImage, 550, 50, this);
-		//table5
-		g2.drawImage(tableImage, 550, 400, this);
-		//table3
-		g2.drawImage(tableImage, 550, 650, this);
-
+		
 
 		
 		g2.setColor(Color.WHITE);
-		g2.fillRect(150, 50, 100, 100);				//kitchen (150,50)
-		g2.fillRect(550, 50, 100, 100);				//entry		(550,50)
+		//g2.fillRect(150, 50, 100, 100);				//kitchen (150,50)
+	//	g2.fillRect(550, 50, 100, 100);				//entry		(550,50)
+		g2.drawImage(entryImage, 550, 50, this);
+		
+		g2.drawImage(kitchenImage, 150, 50, this);
 		//table1
 		g2.drawImage(tableImage, 150, 400, this);
 		//table2
-		g2.drawImage(tableImage, 150, 650, this);
+		g2.drawImage(tableImage, 150, 675, this);
 		
 		//table3
 		g2.drawImage(tableImage, 550, 400, this);
+		
+		g2.drawImage(tableImage, 550, 575, this);
+		g2.drawImage(tableImage, 150, 575, this);
 		//table4
-		g2.drawImage(tableImage, 550, 650, this);
+		g2.drawImage(tableImage, 550, 675, this);
 					
 		g2.drawImage(stairsImage, 360, 175,this);		//stairs
 		g2.setColor(Color.BLUE);
@@ -125,7 +138,8 @@ public class Window extends JPanel{
 		synchronized(RestaurationManager.Instance().ClientList)
 		{
 			for (Client c: RestaurationManager.Instance().ClientList) {
-				g2.fillRect((int)c.getPosition().getX(), (int)c.getPosition().getY(), 25, 25);
+				g2.drawImage(clientImage, (int)c.getPosition().getX(), (int)c.getPosition().getY(),this);
+				
 				
 			}
 		}
@@ -134,7 +148,7 @@ public class Window extends JPanel{
 		synchronized(RestaurationManager.Instance().WaiterList)
 		{
 			for (Waiter w: RestaurationManager.Instance().WaiterList) {
-				g2.fillRect((int)w.getPosition().getX(), (int)w.getPosition().getY(), 25, 25);
+				g2.drawImage(waiterImage, (int)w.getPosition().getX(), (int)w.getPosition().getY(),this);
 			} 
 		}
 		
